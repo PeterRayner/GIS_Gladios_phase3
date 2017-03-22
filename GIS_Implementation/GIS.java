@@ -51,7 +51,11 @@ public class GIS {
         return "IT 4-4";
         
     }
+
     
+    public String getGISDataObject(String a){ return a;}
+     public String modifyGISData(String a){ return a;}
+
 
   
    /**  
@@ -85,7 +89,8 @@ public class GIS {
      * @param values    A string value of the object to be updated
      * @return          A boolean value on whether the method was successful or not
      */ 
-    private boolean update(String values){
+
+        private boolean update(String values){
     //updates value with given values string
         return true;
     }
@@ -103,4 +108,3 @@ public class GIS {
     }
     
 }
-
