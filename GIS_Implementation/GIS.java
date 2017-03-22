@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class GIS {
-
-
     
     public static void main(String[] args) {
         // TODO code application logic here
@@ -21,10 +19,7 @@ public class GIS {
         
      System.out.println("Opened database successfully");
    }
-   
-    
-    
-    
+  
     /**
      * Constructor for the class that will initialize the fields and establish connection
      * to the database.
@@ -52,12 +47,9 @@ public class GIS {
         
     }
 
-    
     public String getGISDataObject(String a){ return a;}
      public String modifyGISData(String a){ return a;}
 
-
-  
    /**  
      * Creates a new table in the database, provided that the authenticated user has
      * the appropriate permissions.
