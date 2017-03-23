@@ -1,15 +1,13 @@
-
 package gis;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class GIS {
-
-
-    
+public class GIS implements GISInterface {
+  
     public static void main(String[] args) {
         // TODO code application logic here
         // do all your testing of your modules here
+        
         
     }
     
@@ -22,9 +20,6 @@ public class GIS {
      System.out.println("Opened database successfully");
    }
    
-    
-    
-    
     /**
      * Constructor for the class that will initialize the fields and establish connection
      * to the database.
@@ -33,7 +28,7 @@ public class GIS {
      * @param password  String value that holds the password which will authenticate the
      *                  connection
      */
-    private GIS(String db, String password){
+    public GIS(String db, String password){
 
      System.out.println("Opened database successfully");
     
@@ -64,6 +59,9 @@ public class GIS {
         
     }
     
+    
+    public String getGISDataObject(String a){ return a;}
+     public String modifyGISData(String a){ return a;}
 
   
    /**  
@@ -73,7 +71,7 @@ public class GIS {
      * @param table     A string value of the object to be deleted
      * @return          A boolean value on whether the method was successful or not
      */
-    private boolean newTable(String table){
+    public boolean newTable(String table){
     //creates new table from string
         return true;
     }
@@ -85,7 +83,7 @@ public class GIS {
      * @param values    A string value of the object to be inserted
      * @return          A boolean value on whether the method was successful or not
      */
-    private boolean insert(String values){
+    public boolean insert(String values){
     //inserts values into database
         return true;
     }
@@ -97,7 +95,8 @@ public class GIS {
      * @param values    A string value of the object to be updated
      * @return          A boolean value on whether the method was successful or not
      */ 
-    private boolean update(String values){
+    
+    public boolean update(String values){
     //updates value with given values string
         return true;
     }
@@ -109,10 +108,9 @@ public class GIS {
      * @param values    A string value of the object to be deleted
      * @return          A boolean value on whether the method was successful or not
      */
-    private boolean delete(String values){
+    public boolean delete(String values){
     //deletes item on the database
         return true;
     }
     
 }
-
