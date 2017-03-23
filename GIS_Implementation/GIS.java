@@ -39,12 +39,27 @@ public class GIS {
     
     }
     
+       /**
+     * Returns the coordinates that the user would like to retrieve
+     * provided the input variables are valid and the coordinates exists.
+     *
+     * @param b         String value to be used to get the coordinates
+     * @return          The coordinates desired by the user with a float return type 
+     */
 
-  private float[] getCoordinates(String b){
+    private float[] getCoordinates(String b){
         float[] temp={1,14};
         return temp;
     } 
     
+         /**
+     * Returns the location that the user would like to retrieve
+     * provided the input variables are valid and the location exists.
+     *
+     * @param x         String value to be used to get the location.
+     * @param y         String value to be used to get the location.
+     * @return          Return the location as a String. 
+     */
     private String getLocation( float x, float y )
     {
         
@@ -52,6 +67,7 @@ public class GIS {
         
     }
 
+    
     
     public String getGISDataObject(String a){ return a;}
      public String modifyGISData(String a){ return a;}
