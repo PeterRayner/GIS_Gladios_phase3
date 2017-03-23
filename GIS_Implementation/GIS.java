@@ -7,6 +7,11 @@ public class GIS implements GISInterface {
     public static void main(String[] args) {
         // TODO code application logic here
         // do all your testing of your modules here
+        GIS myObject = new GIS();
+        //System.out.println("Getting coordinates for IT 4-4");
+        //System.out.println("Coordinates: " + GIS.getCoordinates("IT 4-4"));
+        //System.out.println("Getting location from coordinates: 1, 14");
+        //System.out.println("Coordinates: " + GIS.getLocation("IT 4-4"));
         
     }
     
