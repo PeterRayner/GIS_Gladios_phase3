@@ -34,13 +34,25 @@ public class GIS implements GISInterface {
     
     }
     
-
-  public float[] getCoordinates(String b){
+    /**
+     * Queries the database and returns the coordinates for the respective building location
+     *
+     * @param b     name of the building
+     * @return      array of coordinates for the requested building
+     */
+    private float[] getCoordinates(String b){
         float[] temp={1,14};
         return temp;
     } 
     
-    public String getLocation( float x, float y )
+    /**
+     * Queries the database and returns the building location for the respective coordinates
+     * 
+     * @param x     X coordinate of the building
+     * @param y     Y coordinate of the building
+     * @return      name of the building
+     */
+    private String getLocation( float x, float y )
     {
         
         return "IT 4-4";
