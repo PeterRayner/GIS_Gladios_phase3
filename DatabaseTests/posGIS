@@ -57,7 +57,7 @@ public class PostgreSQLJDBC{
 
    	public Boolean update(String sql){
    		/*  String 'sql' should be sent like this:
-   				String sql = "UPDATE LOCATIONS set NAME = IT 4-1 where ID=1;";*/
+   				String sql = "UPDATE LOCATIONS set NAME='IT 4-1' WHERE ID=1;";*/
    		try{
 	   		stmt = c.createStatement();
 	        stmt.executeUpdate(sql);
