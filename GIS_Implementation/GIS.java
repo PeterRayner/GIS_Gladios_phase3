@@ -8,6 +8,8 @@ import org.postgis.*;
 
 
 public class GIS implements GISInterface {
+    Connection conn = null;
+    Statement statement = null;
   
     public static void main(String[] args) {
         // TODO code application logic here
@@ -100,9 +102,22 @@ catch( Exception e ) {
      */
     @Override
     public float[] getCoordinates(String b){
-
-        float[] temp={1,14};
-        return temp;
+        try {
+            statement = conn.createStatement();
+            ResultSet set = statement.executeQuery("SELECT * FROM LOCATIONS WHERE NAME = '" + b + "'");
+            String[] coords = rs.getString("COORDINATES").split(",");
+            float[] ret = new float[2];
+            ret[0] = Float.valueOf(coords[0]);
+            ret[1] = Float.valueOf(coords[1]);
+          
+            return ret;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            
+            // dummy result
+            float[] temp={1,14};
+            return temp;
+        }
     } 
     
 
@@ -116,9 +131,39 @@ catch( Exception e ) {
     @Override
     public String getLocation( float x, float y )
     {
-        
-        return "IT 4-4";
-        
+        try {
+            String coords = String.valueOf(x) + "," + String.valueOf(y);
+            statement = conn.createStatement();
+            ResultSet set = statement.executeQuery("SELECT * FROM LOCATIONS WHERE COORDINATES = '" + coords + "'");
+            String ret = rs.getString("NAME");
+          
+            return ret;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            
+            // dummy result
+            return "IT 4-4";
+        }
+    }
+  
+    /**
+     * Returns all locations stored in the database
+     *
+     * @return  All locations
+     */
+    public String getAllLocations() {
+        try {
+            statement = conn.createStatement();
+            ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
+            int count = set.getInt(), k = 0;
+            String[] ret = new String[count];
+            set = statement.executeQuery("SELECT * FROM LOCATIONS");
+            while (set.next())
+                ret[k++] = set.getString("NAME");
+            return ret;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
     }
 
 
