@@ -8,15 +8,18 @@ import org.postgis.*;
 
 
 public class GIS implements GISInterface {
+
     Connection conn = null;
     Statement statement = null;
     private static GIS gisobject= new GIS();
+  
     public static void main(String[] args) {
         // TODO code application logic here
         // do all your testing of your modules here
           
         
     }
+
 
     
     /**
@@ -52,7 +55,9 @@ public class GIS implements GISInterface {
     String url = "jdbc:postgresql://localhost:5433/postgis_23_sample"; 
     
     // DriverManager.getConnection(url, username, password);
+
    this.conn = DriverManager.getConnection(url, "postgres", "1234"); 
+
     /* 
     * Add the geometry types to the connection. Note that you 
     * must cast the connection to the pgsql-specific connection 
@@ -63,6 +68,21 @@ public class GIS implements GISInterface {
     /* 
     * Create a statement and execute a select query. 
     */ 
+  /*
+    PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS buildings(");
+    ps.executeUpdate();
+    ps.close();
+    
+    
+     ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS lectureHalls");
+    ps.executeUpdate();
+    ps.close();
+    
+    
+   Statement s = conn.createStatement(); 
+    ResultSet r = s.executeQuery("select AsText(geom) as geom,id from geomtable"); 
+    while( r.next() ) { 
+
    // PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS buildings(");
    // ps.executeUpdate();
    // ps.close();
@@ -76,10 +96,20 @@ public class GIS implements GISInterface {
   // Statement s = conn.createStatement(); 
    // ResultSet r = s.executeQuery("select AsText(geom) as geom,id from geomtable"); 
    // while( r.next() ) { 
+*/
       /* 
       * Retrieve the geometry as an object then cast it to the geometry type. 
       * Print things out. 
       */ 
+
+    // PGgeometry geom = (PGgeometry)r.getObject(1); 
+   //   int id = r.getInt(2); 
+   //   System.out.println("Row " + id + ":");
+    //  System.out.println(geom.toString()); 
+ //   } 
+ //   s.close(); 
+ //   conn.close(); 
+
     //  PGgeometry geom = (PGgeometry)r.getObject(1); 
      // int id = r.getInt(2); 
      // System.out.println("Row " + id + ":");
@@ -87,16 +117,14 @@ public class GIS implements GISInterface {
    // } 
    // s.close(); 
    // conn.close(); 
+
   } 
 catch( Exception e ) { 
   e.printStackTrace(); 
   } 
-
-
      System.out.println("Opened database successfully");
     
     }
-
 
 
 
@@ -158,7 +186,7 @@ catch( Exception e ) {
      * @return  All locations
      */
     public String[] getAllLocations() {
-        try {
+        /*   try {
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
             int count = set.getInt(), k = 0;
@@ -170,7 +198,12 @@ catch( Exception e ) {
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
+        return null;
+        */
+       String[] test={"hi"};
+        return test;
     }
+
     
     /**
 	 * Returns all locations within a radius
@@ -181,6 +214,7 @@ catch( Exception e ) {
      * @return  Location array
 	 */
 	public String[] locationsWithinRadius(float x, float y, float r) {
+    /*
 		try {
 			statement = conn.createStatement();
 			ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
@@ -204,13 +238,16 @@ catch( Exception e ) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return null;
 		}
+    */
+     String[] test={"hi"};
+        return test;
 	}
+
 
     @Override
     public String getGISDataObject(String a){ return a;}
     @Override
     public String modifyGISData(String a){ return a;}
-
    /**  
      * Creates a new table in the database, provided that the authenticated user has
      * the appropriate permissions.
@@ -218,6 +255,7 @@ catch( Exception e ) {
      * @param table     A string value of the object to be deleted
      * @return          A boolean value on whether the method was successful or not
      */
+
     @Override
     public boolean newTable(String table){
     //creates new table from string
@@ -231,6 +269,7 @@ catch( Exception e ) {
      * @param values    A string value of the object to be inserted
      * @return          A boolean value on whether the method was successful or not
      */
+
     @Override
     public boolean insert(String values){
     //inserts values into database
@@ -245,6 +284,7 @@ catch( Exception e ) {
      * @return          A boolean value on whether the method was successful or not
      */ 
     
+
     @Override
     public boolean update(String values){
     //updates value with given values string
@@ -258,6 +298,7 @@ catch( Exception e ) {
      * @param values    A string value of the object to be deleted
      * @return          A boolean value on whether the method was successful or not
      */
+
     @Override
     public boolean delete(String values){
     //deletes item on the database
@@ -289,6 +330,32 @@ catch( Exception e ) {
     return test;
     
     }
+  
+  
+    @Override
+    public double[] getLocationTemp(String b) {
+      // double[] test;
+        double a;
+        a = -25.7559782;
+       double c;
+       c= 28.2332799;
+        double[]  test={a,c};
+        return test;
+    }
+    
+    
+      public geoLocation[] getRoute(double longitude, double latitude, String buildingName)
+      {
+          // sends route from in front of csc to IT building
+            geoLocation a=new geoLocation(-25.7545198,28.2314715);
+             geoLocation b=new geoLocation(-25.7551981,28.2314407);
+              geoLocation c=new geoLocation(-25.7553843,28.232275);
+               geoLocation d=new geoLocation(-25.7559221,28.2332922);
+      
+              geoLocation[] test={a,b,c,d};
+             return test;
+      
+      }
     
     
 }
