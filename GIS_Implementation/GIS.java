@@ -182,7 +182,24 @@ catch( Exception e ) {
     @Override
     public boolean newTable(String table){
     //creates new table from string
-        return true;
+
+        //storing a simple sql query into a string object
+        String sql = "CREATE TABLE " + table + 
+                  "(ID INT PRIMARY KEY NOT NULL," +
+                  "NAME            TEXT NOT NULL," +
+                  "DESCRIPTION     TEXT NOT NULL," +
+                  "geo geography(POINTZ)";
+        try{
+            
+            statement = conn.createStatement();
+            statement.execute(sql);
+            System.out.println("The table " + table + " has been created!");
+
+        }
+        catch(Exception e){
+            e.printstacktrace();
+        }
+        //return true;
     }
     
     /**  
