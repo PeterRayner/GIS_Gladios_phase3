@@ -7,7 +7,7 @@ import org.postgis.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-/*The following is for using JSON objects read from the file
+/*The following is for using JSON objects read from the file*/
 //import org.json.simple.parser.ParseException;
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONObject;
@@ -281,6 +281,46 @@ catch( Exception e ) {
     @Override
     public boolean insert(String values){
     //inserts values into database
+	    
+	    //JSON parser for reading contents from file
+	JSONParser parser = new JSONParser();
+      	
+      	try{
+      		//JSON array to store contents
+      		JSONArray a = (JSONArray) parser.parse(new FileReader(values));
+			//Loop through the array as JSON objects
+      		  for (Object o : a)
+      		  {
+      			  
+      			  
+      			  JSONObject Building = (JSONObject) o;
+
+      			  String BName = (String) Building.get("Name");
+      			  System.out.println(BName);
+
+      			  String city = (String) Building.get("Descriptio");
+      			  System.out.println(city);
+
+      			 String[] Geometry = {"","",""};
+      			  Geometry[0] = (String) Building.get("type");
+      			  System.out.println(Geometry[0]);
+      			  
+      			Geometry[1] = (String) Building.get("coordinates");
+    			  System.out.println(Geometry[0]);
+
+      		  }
+      		
+          } catch (FileNotFoundException e) {//If file not found, print this excesption.
+              e.printStackTrace();
+              return false;
+          } catch (IOException e) {//If there is an error with input/output send this exception.
+              e.printStackTrace();
+              return false;
+          } catch (ParseException e) {//If there is a parse exception send this exception.
+              e.printStackTrace();
+              return false;
+          }
+    
         return true;
     }
      
