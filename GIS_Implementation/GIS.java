@@ -167,38 +167,38 @@ catch( Exception e ) {
     }
     
     /**
-	 * Returns all locations within a radius
-	 *
-	 * @param	x	X coordinate of current position
-	 * @param	y	Y coordinate of current position
-	 * @param	r	Radius
+     * Returns all locations within a radius
+     *
+     * @param	x	X coordinate of current position
+     * @param	y	Y coordinate of current position
+     * @param	r	Radius
      * @return  Location array
-	 */
-	public String[] locationsWithinRadius(float x, float y, float r) {
-		try {
-			statement = conn.createStatement();
-			ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
-			int count = set.getInt(), k = 0;
+     */
+    public String[] locationsWithinRadius(float x, float y, float r) {
+    	try {
+	    statement = conn.createStatement();
+	    ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
+	    int count = set.getInt(), k = 0;
             String[] temp = new String[count];
             set = statement.executeQuery("SELECT * FROM LOCATIONS");
             while (set.next()) {
-				float rad, a, b;
-				String[] coords = rs.getString("COORDINATES").split(",");
-				a = Float.valueOf(coords[0]);
-				b = Float.valueOf(coords[1]);
-				rad = Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
-				if (rad <= r)
-					temp[k++] = set.getString("NAME");
-			}
-			String[] ret = new String[k];
-			for (int j = 0; j < k; j++)
-				ret[j] = temp[j];
-			return ret;
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			return null;
-		}
+		float rad, a, b;
+		String[] coords = rs.getString("COORDINATES").split(",");
+		a = Float.valueOf(coords[0]);
+		b = Float.valueOf(coords[1]);
+		rad = Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
+		if (rad <= r)
+			temp[k++] = set.getString("NAME");
+	    }
+	    String[] ret = new String[k];
+	    for (int j = 0; j < k; j++)
+		ret[j] = temp[j];
+	    return ret;
+	} catch (Exception e) {
+	    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	    return null;
 	}
+    }
 
     @Override
     public String getGISDataObject(String a){ return a;}
