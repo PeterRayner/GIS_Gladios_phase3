@@ -105,7 +105,7 @@ catch( Exception e ) {
         try {
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT * FROM LOCATIONS WHERE NAME = '" + b + "'");
-            String[] coords = rs.getString("COORDINATES").split(",");
+            String[] coords = set.getString("COORDINATES").split(",");
             float[] ret = new float[2];
             ret[0] = Float.valueOf(coords[0]);
             ret[1] = Float.valueOf(coords[1]);
@@ -135,7 +135,7 @@ catch( Exception e ) {
             String coords = String.valueOf(x) + "," + String.valueOf(y);
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT * FROM LOCATIONS WHERE COORDINATES = '" + coords + "'");
-            String ret = rs.getString("NAME");
+            String ret = set.getString("NAME");
           
             return ret;
         } catch (Exception e) {
