@@ -151,7 +151,7 @@ catch( Exception e ) {
      *
      * @return  All locations
      */
-    public String getAllLocations() {
+    public String[] getAllLocations() {
         try {
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
