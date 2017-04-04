@@ -10,7 +10,7 @@ import org.postgis.*;
 public class GIS implements GISInterface {
     Connection conn = null;
     Statement statement = null;
-  
+    private static GIS gisobject= new GIS();
     public static void main(String[] args) {
         // TODO code application logic here
         // do all your testing of your modules here
@@ -23,11 +23,17 @@ public class GIS implements GISInterface {
      * Constructor for the class that will initialize the fields and establish connection
      * to the database with the default parameters.
      */
-    private GIS(){
-        
-     System.out.println("Opened database successfully");
-   }
+   public GIS(){}
    
+
+
+     /**
+     * Returns the instance of the GIS object.
+     */
+    public static GIS getInstance(){
+    return gisobject;
+    
+    }
     /**
      * Constructor for the class that will initialize the fields and establish connection
      * to the database.
@@ -46,7 +52,7 @@ public class GIS implements GISInterface {
     String url = "jdbc:postgresql://localhost:5433/postgis_23_sample"; 
     
     // DriverManager.getConnection(url, username, password);
-    conn = DriverManager.getConnection(url, "postgres", "1234"); 
+   this.conn = DriverManager.getConnection(url, "postgres", "1234"); 
     /* 
     * Add the geometry types to the connection. Note that you 
     * must cast the connection to the pgsql-specific connection 
@@ -167,38 +173,38 @@ catch( Exception e ) {
     }
     
     /**
-     * Returns all locations within a radius
-     *
-     * @param	x	X coordinate of current position
-     * @param	y	Y coordinate of current position
-     * @param	r	Radius
+	 * Returns all locations within a radius
+	 *
+	 * @param	x	X coordinate of current position
+	 * @param	y	Y coordinate of current position
+	 * @param	r	Radius
      * @return  Location array
-     */
-    public String[] locationsWithinRadius(float x, float y, float r) {
-    	try {
-	    statement = conn.createStatement();
-	    ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
-	    int count = set.getInt(), k = 0;
+	 */
+	public String[] locationsWithinRadius(float x, float y, float r) {
+		try {
+			statement = conn.createStatement();
+			ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
+			int count = set.getInt(), k = 0;
             String[] temp = new String[count];
             set = statement.executeQuery("SELECT * FROM LOCATIONS");
             while (set.next()) {
-		float rad, a, b;
-		String[] coords = rs.getString("COORDINATES").split(",");
-		a = Float.valueOf(coords[0]);
-		b = Float.valueOf(coords[1]);
-		rad = Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
-		if (rad <= r)
-			temp[k++] = set.getString("NAME");
-	    }
-	    String[] ret = new String[k];
-	    for (int j = 0; j < k; j++)
-		ret[j] = temp[j];
-	    return ret;
-	} catch (Exception e) {
-	    System.err.println(e.getClass().getName() + ": " + e.getMessage());
-	    return null;
+				float rad, a, b;
+				String[] coords = rs.getString("COORDINATES").split(",");
+				a = Float.valueOf(coords[0]);
+				b = Float.valueOf(coords[1]);
+				rad = Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
+				if (rad <= r)
+					temp[k++] = set.getString("NAME");
+			}
+			String[] ret = new String[k];
+			for (int j = 0; j < k; j++)
+				ret[j] = temp[j];
+			return ret;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
 	}
-    }
 
     @Override
     public String getGISDataObject(String a){ return a;}
@@ -257,5 +263,32 @@ catch( Exception e ) {
     //deletes item on the database
         return true;
     }
+
+
+    /**
+     * this is for demo purposes only
+     * @return returns the names of all the builds in the database
+     */
+    public String[] getAllBuildings(){
+    
+    String[] test={"geography","IT","Maths","Economics"};
+    return test;
+    }
+    
+    
+    
+     /**
+      *  this is for demo purposes only
+     * @b is the name of the building that the user has selected
+     * @return returns all the classrooms of the building that was passed through as parameter
+     */
+    public String[] getClassRooms(String b)
+    {
+    
+    String[] test={"IT 4-1","IT 4-2","IT 4-3","IT 4-4","IT 4-5"};
+    return test;
+    
+    }
+    
     
 }
