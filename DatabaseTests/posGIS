@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-put posGIS writeup here...
-
-//after downloading Node.js install the driver
-npm install pg
-
-We can now manipulate our PostGreSQL databse using our Node.js driver(CRUD, Search, Query etc)
-
-
-Pros and Cons:
-
-Pros
-Legendary reliability and stability
-
-Unlike many proprietary databases, it is extremely common for companies to report that PostgreSQL has never, ever crashed for them in several years of high activity operation.  Not even once.  It just works.
-
-Extensible
-
-The source code is available to all at no charge.  If your staff have a need to customise or extend PostgreSQL in any way then they are able to do so with a minimum of effort, and with no attached costs.  This is complemented by the community of PostgreSQL professionals and enthusiasts around the globe that also actively extend PostgreSQL on a daily basis.
-
-Cross platform
-
-PostgreSQL is available for almost every brand of Unix (34 platforms with the latest stable release), and Windows compatibility is available via the Cygwin framework. Native Windows compatibility is also available with version 8.0 and above.
-
-These are only a few as there are many others
-
-In my comparison of the two databases(MongoDb and PostGreSQL) I did really find any disadvantages(even on the web) as PostGreSQL has been said to "just work" with little or crashes ever repoted.
 =======
 /* Characteristics favoring PostgreSQL Database:
 
