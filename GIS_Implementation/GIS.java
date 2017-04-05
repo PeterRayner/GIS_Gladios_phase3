@@ -4,12 +4,22 @@ import java.util.*;
 import java.lang.*; 
 import static java.sql.DriverManager.getConnection;
 import org.postgis.*; 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+/*The following is for using JSON objects read from the file*/
+//import org.json.simple.parser.ParseException;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
 
 
 
 public class GIS implements GISInterface {
+
     Connection conn = null;
     Statement statement = null;
+    private static GIS gisobject= new GIS();
   
     public static void main(String[] args) {
         // TODO code application logic here
@@ -18,16 +28,23 @@ public class GIS implements GISInterface {
         
     }
 
+
     
     /**
      * Constructor for the class that will initialize the fields and establish connection
      * to the database with the default parameters.
      */
-    private GIS(){
-        
-     System.out.println("Opened database successfully");
-   }
+   public GIS(){}
    
+
+
+     /**
+     * Returns the instance of the GIS object.
+     */
+    public static GIS getInstance(){
+    return gisobject;
+    
+    }
     /**
      * Constructor for the class that will initialize the fields and establish connection
      * to the database.
@@ -46,7 +63,9 @@ public class GIS implements GISInterface {
     String url = "jdbc:postgresql://localhost:5433/postgis_23_sample"; 
     
     // DriverManager.getConnection(url, username, password);
-    conn = DriverManager.getConnection(url, "postgres", "1234"); 
+
+   this.conn = DriverManager.getConnection(url, "postgres", "1234"); 
+
     /* 
     * Add the geometry types to the connection. Note that you 
     * must cast the connection to the pgsql-specific connection 
@@ -57,6 +76,21 @@ public class GIS implements GISInterface {
     /* 
     * Create a statement and execute a select query. 
     */ 
+  /*
+    PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS buildings(");
+    ps.executeUpdate();
+    ps.close();
+    
+    
+     ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS lectureHalls");
+    ps.executeUpdate();
+    ps.close();
+    
+    
+   Statement s = conn.createStatement(); 
+    ResultSet r = s.executeQuery("select AsText(geom) as geom,id from geomtable"); 
+    while( r.next() ) { 
+
    // PreparedStatement ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS buildings(");
    // ps.executeUpdate();
    // ps.close();
@@ -70,10 +104,20 @@ public class GIS implements GISInterface {
   // Statement s = conn.createStatement(); 
    // ResultSet r = s.executeQuery("select AsText(geom) as geom,id from geomtable"); 
    // while( r.next() ) { 
+*/
       /* 
       * Retrieve the geometry as an object then cast it to the geometry type. 
       * Print things out. 
       */ 
+
+    // PGgeometry geom = (PGgeometry)r.getObject(1); 
+   //   int id = r.getInt(2); 
+   //   System.out.println("Row " + id + ":");
+    //  System.out.println(geom.toString()); 
+ //   } 
+ //   s.close(); 
+ //   conn.close(); 
+
     //  PGgeometry geom = (PGgeometry)r.getObject(1); 
      // int id = r.getInt(2); 
      // System.out.println("Row " + id + ":");
@@ -81,16 +125,14 @@ public class GIS implements GISInterface {
    // } 
    // s.close(); 
    // conn.close(); 
+
   } 
 catch( Exception e ) { 
   e.printStackTrace(); 
   } 
-
-
      System.out.println("Opened database successfully");
     
     }
-
 
 
 
@@ -105,7 +147,7 @@ catch( Exception e ) {
         try {
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT * FROM LOCATIONS WHERE NAME = '" + b + "'");
-            String[] coords = rs.getString("COORDINATES").split(",");
+            String[] coords = set.getString("COORDINATES").split(",");
             float[] ret = new float[2];
             ret[0] = Float.valueOf(coords[0]);
             ret[1] = Float.valueOf(coords[1]);
@@ -135,7 +177,7 @@ catch( Exception e ) {
             String coords = String.valueOf(x) + "," + String.valueOf(y);
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT * FROM LOCATIONS WHERE COORDINATES = '" + coords + "'");
-            String ret = rs.getString("NAME");
+            String ret = set.getString("NAME");
           
             return ret;
         } catch (Exception e) {
@@ -151,8 +193,8 @@ catch( Exception e ) {
      *
      * @return  All locations
      */
-    public String getAllLocations() {
-        try {
+    public String[] getAllLocations() {
+        /*   try {
             statement = conn.createStatement();
             ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
             int count = set.getInt(), k = 0;
@@ -164,14 +206,56 @@ catch( Exception e ) {
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
+        return null;
+        */
+       String[] test={"hi"};
+        return test;
     }
+
+    
+    /**
+	 * Returns all locations within a radius
+	 *
+	 * @param	x	X coordinate of current position
+	 * @param	y	Y coordinate of current position
+	 * @param	r	Radius
+     * @return  Location array
+	 */
+	public String[] locationsWithinRadius(float x, float y, float r) {
+    /*
+		try {
+			statement = conn.createStatement();
+			ResultSet set = statement.executeQuery("SELECT COUNT(*) FROM LOCATIONS");
+			int count = set.getInt(), k = 0;
+            String[] temp = new String[count];
+            set = statement.executeQuery("SELECT * FROM LOCATIONS");
+            while (set.next()) {
+				float rad, a, b;
+				String[] coords = rs.getString("COORDINATES").split(",");
+				a = Float.valueOf(coords[0]);
+				b = Float.valueOf(coords[1]);
+				rad = Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
+				if (rad <= r)
+					temp[k++] = set.getString("NAME");
+			}
+			String[] ret = new String[k];
+			for (int j = 0; j < k; j++)
+				ret[j] = temp[j];
+			return ret;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+    */
+     String[] test={"hi"};
+        return test;
+	}
 
 
     @Override
     public String getGISDataObject(String a){ return a;}
     @Override
     public String modifyGISData(String a){ return a;}
-
    /**  
      * Creates a new table in the database, provided that the authenticated user has
      * the appropriate permissions.
@@ -179,6 +263,7 @@ catch( Exception e ) {
      * @param table     A string value of the object to be deleted
      * @return          A boolean value on whether the method was successful or not
      */
+
     @Override
     public boolean newTable(String table){
     //creates new table from string
@@ -209,9 +294,50 @@ catch( Exception e ) {
      * @param values    A string value of the object to be inserted
      * @return          A boolean value on whether the method was successful or not
      */
+
     @Override
     public boolean insert(String values){
     //inserts values into database
+	    
+	    //JSON parser for reading contents from file
+	JSONParser parser = new JSONParser();
+      	
+      	try{
+      		//JSON array to store contents
+      		JSONArray a = (JSONArray) parser.parse(new FileReader(values));
+			//Loop through the array as JSON objects
+      		  for (Object o : a)
+      		  {
+      			  
+      			  
+      			  JSONObject Building = (JSONObject) o;
+
+      			  String BName = (String) Building.get("Name");
+      			  System.out.println(BName);
+
+      			  String city = (String) Building.get("Descriptio");
+      			  System.out.println(city);
+
+      			 String[] Geometry = {"","",""};
+      			  Geometry[0] = (String) Building.get("type");
+      			  System.out.println(Geometry[0]);
+      			  
+      			Geometry[1] = (String) Building.get("coordinates");
+    			  System.out.println(Geometry[0]);
+
+      		  }
+      		
+          } catch (FileNotFoundException e) {//If file not found, print this excesption.
+              e.printStackTrace();
+              return false;
+          } catch (IOException e) {//If there is an error with input/output send this exception.
+              e.printStackTrace();
+              return false;
+          } catch (ParseException e) {//If there is a parse exception send this exception.
+              e.printStackTrace();
+              return false;
+          }
+    
         return true;
     }
      
@@ -223,6 +349,7 @@ catch( Exception e ) {
      * @return          A boolean value on whether the method was successful or not
      */ 
     
+
     @Override
     public boolean update(String values){
     //updates value with given values string
@@ -236,10 +363,64 @@ catch( Exception e ) {
      * @param values    A string value of the object to be deleted
      * @return          A boolean value on whether the method was successful or not
      */
+
     @Override
     public boolean delete(String values){
     //deletes item on the database
         return true;
     }
+
+
+    /**
+     * this is for demo purposes only
+     * @return returns the names of all the builds in the database
+     */
+    public String[] getAllBuildings(){
+    
+    String[] test={"geography","IT","Maths","Economics"};
+    return test;
+    }
+    
+    
+    
+     /**
+      *  this is for demo purposes only
+     * @b is the name of the building that the user has selected
+     * @return returns all the classrooms of the building that was passed through as parameter
+     */
+    public String[] getClassRooms(String b)
+    {
+    
+    String[] test={"IT 4-1","IT 4-2","IT 4-3","IT 4-4","IT 4-5"};
+    return test;
+    
+    }
+  
+  
+    @Override
+    public double[] getLocationTemp(String b) {
+      // double[] test;
+        double a;
+        a = -25.7559782;
+       double c;
+       c= 28.2332799;
+        double[]  test={a,c};
+        return test;
+    }
+    
+    
+      public geoLocation[] getRoute(double longitude, double latitude, String buildingName)
+      {
+          // sends route from in front of csc to IT building
+            geoLocation a=new geoLocation(-25.7545198,28.2314715);
+             geoLocation b=new geoLocation(-25.7551981,28.2314407);
+              geoLocation c=new geoLocation(-25.7553843,28.232275);
+               geoLocation d=new geoLocation(-25.7559221,28.2332922);
+      
+              geoLocation[] test={a,b,c,d};
+             return test;
+      
+      }
+    
     
 }
