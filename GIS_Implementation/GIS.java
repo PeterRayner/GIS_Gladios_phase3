@@ -303,29 +303,33 @@ catch( Exception e ) {
 	JSONParser parser = new JSONParser();
       	
       	try{
-      		//JSON array to store contents
-      		JSONArray a = (JSONArray) parser.parse(new FileReader(values));
-			//Loop through the array as JSON objects
-      		  for (Object o : a)
-      		  {
-      			  
-      			  
-      			  JSONObject Building = (JSONObject) o;
+      	    String fStr = "src/gis/" + values; //Just have to fix the path as it may differ
+      	    Object obj = parser.parse(new FileReader(fStr)); 
+            
+            JSONObject jsonObject = (JSONObject) obj;
+            
 
-      			  String BName = (String) Building.get("Name");
-      			  System.out.println(BName);
+            String type = (String) jsonObject.get("type");
+            
 
-      			  String city = (String) Building.get("Descriptio");
-      			  System.out.println(city);
-
-      			 String[] Geometry = {"","",""};
-      			  Geometry[0] = (String) Building.get("type");
-      			  System.out.println(Geometry[0]);
-      			  
-      			Geometry[1] = (String) Building.get("coordinates");
-    			  System.out.println(Geometry[0]);
-
-      		  }
+            Object crs = (Object) jsonObject.get("crs");
+            
+            
+            Object feat = (Object) jsonObject.get("features");
+            
+            
+            JSONObject jsonObject1 = (JSONObject) feat;
+            
+            
+            String type1 = (String) jsonObject.get("type");
+		
+		//Following is only to test what is in the variables
+		System.out.println(jsonObject);
+		System.out.println("The type: " + type);
+		System.out.println("The crs: " + crs);
+		System.out.println("The Features: " + feat);
+		System.out.println(jsonObject1);
+            	System.out.println("Building type: " + type1);
       		
           } catch (FileNotFoundException e) {//If file not found, print this excesption.
               e.printStackTrace();
