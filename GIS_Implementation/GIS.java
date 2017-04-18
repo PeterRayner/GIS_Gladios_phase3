@@ -304,32 +304,24 @@ catch( Exception e ) {
       	
       	try{
       	    String fStr = "src/gis/" + values; //Just have to fix the path as it may differ
+		
       	    Object obj = parser.parse(new FileReader(fStr)); 
             
             JSONObject jsonObject = (JSONObject) obj;
             
-
             String type = (String) jsonObject.get("type");
             
-
             Object crs = (Object) jsonObject.get("crs");
-            
             
             Object feat = (Object) jsonObject.get("features");
             
-            
-            JSONObject jsonObject1 = (JSONObject) feat;
-            
-            
-            String type1 = (String) jsonObject.get("type");
+            //JSONObject jsonObject1 = (JSONObject) feat;            
 		
 		//Following is only to test what is in the variables
 		System.out.println(jsonObject);
 		System.out.println("The type: " + type);
 		System.out.println("The crs: " + crs);
 		System.out.println("The Features: " + feat);
-		System.out.println(jsonObject1);
-            	System.out.println("Building type: " + type1);
       		
           } catch (FileNotFoundException e) {//If file not found, print this excesption.
               e.printStackTrace();
