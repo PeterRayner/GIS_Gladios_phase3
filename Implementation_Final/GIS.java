@@ -128,14 +128,14 @@ public final class GIS implements GISInterface {
                 buildings.readLine();
 
                 while ((line = buildings.readLine()) != null) {
-//                System.out.print(line+"\n");
+
                     if (line.length() > 1) {
                         String name = line.split(":")[3].trim().split(",")[0].replace("\\/", "-").replaceAll("^\"|\"$", "");
-//                    System.out.print("Name: " + name);
+
                         String description = line.split(":")[4].trim().split(",")[0].replaceAll("^\"|\"$", "").replace(" }", "");
-//                    System.out.println("Des: "+des);
+
                         String geometry = line.split(":")[6].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("Geometry: " + geometry);
+
                         String coordinates = line.split(":")[7].trim().replace("[ ", "").replace(" ]", "").replace(" },", "").replace(", 0.0", "").replace(" ", "");
                         insertBuilding(name, description, geometry, coordinates, table);
                     }
@@ -169,20 +169,20 @@ public final class GIS implements GISInterface {
                 buildings.readLine();
 
                 while ((line = buildings.readLine()) != null) {
-//                System.out.print(line+"\n");
+
                     if (line.length() > 1) {
                         String id = line.split(":")[3].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("id: " + id);
+
                         String room = line.split(":")[4].trim().split(",")[0].replaceAll("^\"|\"$", "").replace(" }", "");
-//                    System.out.println("room: "+room);
+
                         String building = line.split(":")[5].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("building: " + building);
+
                         String level = line.split(":")[6].trim().split(",")[0].replaceAll("^\"|\"$", "").replace(" }", "");
-//                        System.out.println("level: " + level);
+
                         String geometry = line.split(":")[8].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("Geometry: " + geometry);
+
                         String coordinates = line.split(":")[9].trim().replace("[ ", "").replace(" ]", "").replace(" },", "").replace(", 0.0", "").replace(" ", "").replace("}", "");
-//                    System.out.println("coordinates: " + coordinates);
+
                         insertLecture(id, room, building, level, geometry, coordinates, table);
                     }
                 }
@@ -198,20 +198,20 @@ public final class GIS implements GISInterface {
             buildings.readLine();
 
             while ((line = buildings.readLine()) != null) {
-//                System.out.print(line+"\n");
+
                 if (line.length() > 1) {
                     String id = line.split(":")[3].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("id:" + id);
+
                     String level = line.split(":")[4].trim().split(",")[0].replaceAll("^\"|\"$", "").replace(" }", "");
-//                    System.out.println("level: "+level);
+
                     String position = line.split(":")[5].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("position: " + position);
+
                     String building = line.split(":")[6].trim().split(",")[0].replace(" }", "").replaceAll("^\"|\"$", "");
-//                    System.out.println("building: " + building);
+
                     String geometry = line.split(":")[8].trim().split(",")[0].replaceAll("^\"|\"$", "");
-//                    System.out.println("Geometry: " + geometry);
+
                     String coordinates = line.split(":")[9].trim().replace("[ ", "").replace(" ]", "").replace(" },", "").replace(", 0.0", "").replace(" ", "").replace("}", "");
-//                    System.out.println("coordinates: " + coordinates);
+
                     insertLecture(id, level, position, building, geometry, coordinates, table);
                 }
             }
