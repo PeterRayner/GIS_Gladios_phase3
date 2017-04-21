@@ -282,6 +282,37 @@ public final class GIS implements GISInterface {
         return building;
     }
 
+    
+    /**
+    * gets the coordinates of the building and returns the name of the building
+    * @param lat the latitude of the building
+    * @param lon the longitude of the building
+    *@return the name of the building in which the lon and latitude fall into
+    */
+    
+    
+    @Override
+    public String getBuilding(Double lat, Double lon) {
+        String coord = "";
+        String building = "Building not found.";
+        try {
+            ResultSet rs = map.createStatement().executeQuery("SELECT * FROM buildings");
+            if (rs.next()) {
+                coord += rs.getString("Geometry");
+                for (int x = 0; x < coord.split(",").length - 1; x++) {
+                    if (coord.split(",")[x].equals(lat.toString())) {
+                        if (coord.split(",")[x + 1].equals(lon.toString())) {
+                            return rs.getString("Building");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GIS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return building;
+    }
+
     /**
      * Allows us to add more buildings to the buildings file
      * Note: this only works with files in the same format as the building file 
